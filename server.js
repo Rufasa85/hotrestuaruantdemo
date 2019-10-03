@@ -1,7 +1,7 @@
 // initializing express
 var express = require('express');
 var app = express();
-
+var PORT = process.env.PORT || 3000;
 
 
 //setup app to parse post data
@@ -23,6 +23,6 @@ app.use('/api',apiRoutes);
 
 
 //set up app to listen for request
-app.listen(3000,function(){
-    console.log('server running on port 3000')
+app.listen(PORT,function(){
+    console.log('server running on port ' + PORT)
 });
