@@ -1,6 +1,19 @@
 var express = require('express');
 var app = express();
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+var tables = [{
+    name:"joe",
+    number:1
+}];
+
+var waitlist = [{
+    name:"steve",
+    number:5
+}];
+
 app.get('/',function(req,res){
     res.send('this will be tables page')
 });
@@ -10,15 +23,21 @@ app.get('/add',function(req,res){
 });
 
 app.get('/api/tables',function(req,res){
-    res.send('this will send table data')
+    res.json(tables);
 });
 
 app.get('/api/waitlist',function(req,res){
-    res.send('this will send waitlist data')
+    res.json(waitlist);
 });
 
 app.post('/api/tables',function(req,res){
-    res.send("this is the post route")
+   var newReservation = req.body;
+   if(tables.length<5){
+        tables.push(newReservation);
+   } else {
+       waitlist.push(newReservation);
+   }
+   res.json(newReservation);
 })
 
 app.listen(3000,function(){
