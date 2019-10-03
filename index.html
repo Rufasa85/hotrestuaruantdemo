@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .tablesCards,.waitlistCards {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .card {
+        width:20%;
+        background-color: salmon;
+        box-sizing: border-box;
+        border-radius: 5px;
+        box-shadow: 2px 2px 5px blueviolet;
+    }
+</style>
+
+<body>
+    <h1>I am the index page</h1>
+    <h3>Tables</h3>
+    <div class="tablesCards">
+
+    </div>
+    <h3>Waitlist</h3>
+    <div class="waitlistCards">
+
+    </div>
+    <a href="/add">add page</a>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script>
+        $.get('/api/tables').then(function (data) {
+            for (let i = 0; i < data.length; i++) {
+                var newCard = $("<div>");
+                newCard.addClass('card');
+                var cardName = $('<h5>');
+                cardName.text(data[i].name);
+                newCard.append(cardName);
+                $('.tablesCards').append(newCard);
+            }
+        });
+        $.get('/api/waitlist').then(function (data) {
+            for (let i = 0; i < data.length; i++) {
+                var newCard = $("<div>");
+                newCard.addClass('card');
+                var cardName = $('<h5>');
+                cardName.text(data[i].name);
+                newCard.append(cardName);
+                $('.waitlistCards').append(newCard);
+            }
+        });
+    </script>
+</body>
+
+</html>
