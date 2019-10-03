@@ -1,45 +1,28 @@
+// initializing express
 var express = require('express');
 var app = express();
 
+
+
+//setup app to parse post data
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-var tables = [{
-    name:"joe",
-    number:1
-}];
+// create arrays to hold data
 
-var waitlist = [{
-    name:"steve",
-    number:5
-}];
 
-app.get('/',function(req,res){
-    res.send('this will be tables page')
-});
+//html routes, will sendback the homepage
+var htmlRoutes = require('./routes/htmlRoutes');
+app.use(htmlRoutes);
 
-app.get('/add',function(req,res){
-    res.send('this will be add page')
-});
+var apiRoutes = require('./routes/apiRoutes');
+app.use('/api',apiRoutes);
 
-app.get('/api/tables',function(req,res){
-    res.json(tables);
-});
+//data routes, get all tables
 
-app.get('/api/waitlist',function(req,res){
-    res.json(waitlist);
-});
 
-app.post('/api/tables',function(req,res){
-   var newReservation = req.body;
-   if(tables.length<5){
-        tables.push(newReservation);
-   } else {
-       waitlist.push(newReservation);
-   }
-   res.json(newReservation);
-})
 
+//set up app to listen for request
 app.listen(3000,function(){
     console.log('server running on port 3000')
 });

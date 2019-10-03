@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>I am the add page</h1>
+    <form action="" id='addTableForm'>
+        <input type="text" id='name' placeholder="name">
+        <input type="text" id = "number" placeholder="number">
+        <input type="submit" value="Reserve Now!">
+    </form>
+    <a href="/">home page</a>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script>
+        $("#addTableForm").submit(function(event){
+            event.preventDefault();
+            var newTable = {
+                name:$('#name').val(),
+                number:$("#number").val()
+            }
+            $.post('/api/tables',newTable).then(function(data){
+                
+                window.location.href = '/';
+            })
+            // console.log(newTable)
+        })
+    </script>
+</body>
+
+</html>
